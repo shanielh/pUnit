@@ -38,6 +38,8 @@ class TestRunner implements Interfaces\ITestRunner
     public function Run()
     {
         $this->RunPolymorphic($this->mProvider);
+        
+        $this->mFormatter->Summarize();
     }
     
     private function RunPolymorphic(Interfaces\IStateTest $test)

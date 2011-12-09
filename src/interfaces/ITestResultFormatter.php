@@ -11,5 +11,7 @@ interface ITestResultFormatter
     public function StartSuite($name, $count);
     
     public function EndSuite();
+    
+    public function Summarize();
 
 }

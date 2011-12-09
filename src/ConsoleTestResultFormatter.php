@@ -51,14 +51,18 @@ class ConsoleTestResultFormatter implements Interfaces\ITestResultFormatter
 
     public function StartSuite($name, $count)
     {
-        $this->WriteLine('Start Suite ' . $name . ' ('. $count . ')');
+        $this->WriteLine("$name ($count) : ");
         $this->mIndentation++;
     }
     
     public function EndSuite()
     {
         $this->mIndentation--;
-        $this->WriteLine('End Suite');
+    }
+    
+    public function Summarize()
+    {
+        $this->WRiteLine('<EOF>');
     }
     
 }
