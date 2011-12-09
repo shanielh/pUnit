@@ -2,7 +2,7 @@
 
 namespace pUnit;
 
-class ClassTestProvider implements Interfaces\ITestProvider
+class ObjectTestProvider implements Interfaces\ITestProvider
 {
     
     private $mObject;
