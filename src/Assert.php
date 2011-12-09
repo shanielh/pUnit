@@ -67,12 +67,100 @@ abstract class Assert
         self::Fail($message);
     }
     
-    // Todo : IsTrue, IsFalse
+    // IsTrue, IsFalse, with ==, != operators.
+    // For ===, !== use AreIdentical.
     
-    // Todo : InstanceOf, NotInstanceOf
+    public static function IsTrue($actual, $message = '')
+    {
+        if ($actual)
+        {
+            return;
+        }
+        
+        if ($message === '')
+        {
+            $message = "Expected '$actual' to be True";
+        }
+        
+        self::Fail($message);
+    }
     
+    public static function IsFalse($actual, $message = '')
+    {
+        if (!$actual)
+        {
+            return;
+        }
+        
+        if ($message === '')
+        {
+            $message = "Expected '$actual' to be False";
+        }
+        
+        self::Fail($message);
+    }
     
+    // InstanceOf, NotInstanceOf - using instanceof operator.
     
+    public static function IsInstanceOf($expectedType, $actual, $message = '')
+    {
+        if ($actual instanceof $expectedType)
+        {
+            return;
+        }
+        
+        if ($message === '')
+        {
+            $message = "Expected '$actual' to be instance of '$expectedType'";
+        }
+        
+        self::Fail($message);
+    }
+    
+    public static function NotInstanceOf($expectedType, $actual, $message = '')
+    {
+        if (!($actual instanceof $expectedType))
+        {
+            return;
+        }
+        
+        if ($message === '')
+        {
+            $message = "Expected '$actual' not to be instance of '$expectedType'";
+        }
+        
+        self::Fail($message);        
+    }
+    
+    public static function IsNull($actual, $message = '')
+    {
+        if (is_null($actual))
+        {
+            return;
+        }
+        
+        if ($message === '')
+        {
+            $message = "Expected '$actual' to be null";
+        }
+        
+        self::Fail($message);
+    }
+    
+    public static function IsNotNull($actual, $message = '')
+    {
+        if (!is_null($actual))
+        {
+            return;
+        }
+        
+        if ($message === '')
+        {
+            $message = "Expected '$actual' not to be null";
+        }
+        
+        self::Fail($message);
+    }
     
     private static function Fail($message)
     {
