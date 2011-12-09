@@ -15,29 +15,34 @@ First, Create a test class :
     class MyTests // Optinally : Implements pUnit\Interfaces\IStateTest
     {
         
-        function ClassSetUp()
+        public function ClassSetUp()
         {
             // This will run before the first test
         }
         
-        function ClassTearDown()
+        public function ClassTearDown()
         {
             // This will run after the last test
         }
         
-        function SetUp()
+        public function SetUp()
         {
             // This will run before any test
         }
         
-        function TearDown()
+        public function TearDown()
         {
             // This will run after any test
         }
         
-        function TestRunner_Should_Class_This()
+        public function TestRunner_Should_Class_This()
         {
             Assert::AreEqual('expected', 'actual', 'Expected is not actual :(');
+        }
+        
+        private function MyHelperFunction()
+        {
+            // This will not be called.
         }
         
     }
