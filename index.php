@@ -28,13 +28,18 @@ class MyTests implements pUnit\Interfaces\IStateTest
         Assert::AreEqual('a','b');
     }
     
+    private function Not_A_Test()
+    {
+        
+    }
+    
 }
 
 $provider = new pUnit\ClassTestProvider(new MyTests());
 $provider->SetUp();
 
 $runner = new pUnit\TestRunner();
-$runner->SetOutput(new pUnit\ConsoleTestResultFormatter);
+$runner->SetOutput(new pUnit\ConsoleTestResultFormatter());
 $runner->SetTest($provider);
 
 $runner->Run();
