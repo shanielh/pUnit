@@ -48,6 +48,7 @@ class AssertFailedException extends \Exception
             $retVal .= "($key) $class{$frame['function']} \r\n";
         }
         
+        $retVal = substr($retVal, 0, strlen($retVal) - 2);
         
         return $this->getMessage() . ", Stack Trace : \r\n" . $retVal;
     }
