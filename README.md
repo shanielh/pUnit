@@ -65,10 +65,9 @@ Now, Run your tests from the console :
 
     php index.php
     
-To do 
-=====
+How to contribute ? 
+===================
 
-1. Add more asserts
-2. Create a (Recursive) Provider for a whole folder
+See [Issues](https://github.com/morishani/pUnit/issues?sort=created&direction=desc&state=open) . 
 
-For requests - add an issue :-)
+Thanks.
