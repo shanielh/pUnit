@@ -11,6 +11,8 @@ class ConsoleTestResultFormatter implements Interfaces\ITestResultFormatter
     
     private $mColors;
     
+    private $mIndentation = 0;
+    
     public function __construct()
     {
         $this->mColors = new External\ConsoleColors();
@@ -18,14 +20,23 @@ class ConsoleTestResultFormatter implements Interfaces\ITestResultFormatter
         $this->mFail = $this->mColors->getColoredString('Fail', 'red');
     }
     
-    private function WriteLine($message)
+    private function WriteLine($message, $indentation = true)
     {
-        $this->Write($message . "\r\n");    
+        $this->Write($message . "\r\n", $indentation);    
     }
     
-    private function Write($message)
+    private function Write($message, $indentation = true)
     {
+        if ($indentation)
+        {
+            echo $this->GetIndentation();
+        }
         echo $message;
+    }
+    
+    private function GetIndentation()
+    {
+        return str_repeat("  ", $this->mIndentation);
     }
     
     public function StartTest($name)
@@ -35,16 +46,18 @@ class ConsoleTestResultFormatter implements Interfaces\ITestResultFormatter
     
     public function EndTest($result, \Exception $e = null)
     {
-        $this->WriteLine(' - ' . ($result ? $this->mSuccess : $this->mFail) . ($e == null ? '' : ' - ' . $e));
+        $this->WriteLine(' - ' . ($result ? $this->mSuccess : $this->mFail) . ($e == null ? '' : ' - ' . $e), false);
     }
 
     public function StartSuite($name, $count)
     {
         $this->WriteLine('Start Suite ' . $name . ' ('. $count . ')');
+        $this->mIndentation++;
     }
     
     public function EndSuite()
     {
+        $this->mIndentation--;
         $this->WriteLine('End Suite');
     }
     
