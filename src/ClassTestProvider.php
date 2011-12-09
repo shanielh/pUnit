@@ -11,6 +11,9 @@ class ClassTestProvider implements Interfaces\ITestProvider
     
     private $mTearDownMethod;
     
+    private static $MethodsToBypass = array('SetUp' => true, 'TearDown' => true, 
+                                            'ClassSetUp' => true, 'ClassTearDown' => true);
+    
     private static function GetMethodOrEmpty($object, $methodName)
     {
         $reflectionClass = new \ReflectionClass($object);
@@ -54,8 +57,8 @@ class ClassTestProvider implements Interfaces\ITestProvider
         foreach ($reflectionClass->getMethods() as $method)
         {
             $methodName = $method->getName();
-            if ($methodName == 'SetUp' || 
-                $methodName == 'TearDown')
+            if (array_key_exists($methodName, self::$MethodsToBypass) ||
+                !$method->isPublic())
             {
                 continue;
             }
