@@ -5,7 +5,8 @@ namespace pUnit;
 abstract class Assert
 {
     
-    public static function AreEqual($expected, $actual, $message = '')
+    // Identical : using ===, !== operators
+    public static function AreIdentical($expected, $actual, $message = '')
     {
         if ($expected === $actual)
         {
@@ -20,7 +21,7 @@ abstract class Assert
         self::Fail($message);
     }
     
-    public static function AreNotEqual($expected, $actual, $message = '')
+    public static function AreNotIdentical($expected, $actual, $message = '')
     {
         if ($expected !== $actual)
         {
@@ -35,7 +36,8 @@ abstract class Assert
         self::Fail($message);
     }
     
-    public static function AreSame($expected, $actual, $message = '')
+    // Equal : using ==, != operators
+    public static function AreEqual($expected, $actual, $message = '')
     {
         if ($expected == $actual)
         {
@@ -50,7 +52,7 @@ abstract class Assert
         self::Fail($message);
     }
     
-    public static function AreNotSame($expected, $actual, $message = '')
+    public static function AreNotEqual($expected, $actual, $message = '')
     {
         if ($expected != $actual)
         {
@@ -64,6 +66,13 @@ abstract class Assert
         
         self::Fail($message);
     }
+    
+    // Todo : IsTrue, IsFalse
+    
+    // Todo : InstanceOf, NotInstanceOf
+    
+    
+    
     
     private static function Fail($message)
     {
