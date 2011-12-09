@@ -50,6 +50,10 @@ class TestRunner implements Interfaces\ITestRunner
         {
             $this->RunTest($test);
         }
+        else
+        {
+            throw new Exception("TestProvider should return as tests only classes that implement ITestProvide / ITest.");   
+        }
     }
     
     private function RunProvider(Interfaces\ITestProvider $provider)
@@ -57,14 +61,21 @@ class TestRunner implements Interfaces\ITestRunner
         $tests = $provider->GetTests();
         $this->mFormatter->StartSuite($provider->GetName(), count($tests));
         
-        $provider->SetUp();
-        
-        foreach ($tests as $test)
+        try
         {
-            $this->RunPolymorphic($test);
+            $provider->SetUp();
+            
+            foreach ($tests as $test)
+            {
+                $this->RunPolymorphic($test);
+            }
+            
+            $provider->TearDown();
         }
-        
-        $provider->TearDown();
+        catch (\Exception $e)
+        {
+            $this->mFormatter->EndSuite($e);    
+        }
         
         $this->mFormatter->EndSuite();
         
@@ -74,7 +85,18 @@ class TestRunner implements Interfaces\ITestRunner
     {
         $this->mFormatter->StartTest($test->GetName());
         
-        $test->SetUp();
+        try
+        {
+            $test->SetUp();            
+        }
+        catch (\Exception $e)
+        {
+            $this->mFormatter->EndTest(false, $e);
+            
+            // SetUp failed, down run the rest of the test it.
+            return;
+        }
+        
         try
         {
             $test->Test();
@@ -84,7 +106,15 @@ class TestRunner implements Interfaces\ITestRunner
         {
             $this->mFormatter->EndTest(false, $e);
         }
-        $test->TearDown();
+        
+        try
+        {
+            $test->TearDown();            
+        }
+        catch (\Exception $e)
+        {
+            $this->mFormatter->EndTest(false, $e);
+        }
         
     }
     
