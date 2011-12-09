@@ -162,6 +162,36 @@ abstract class Assert
         self::Fail($message);
     }
     
+    /**
+     * Runs the function with no params,
+     * Catches for an exception of type from param or 
+     * Fails the test
+     *
+     * @return void|Exception
+     * @author Shani Elharrar
+     **/
+    public static function Throws($function, $exceptionType, $message = '')
+    {
+        if ($message === '')
+        {
+            $message = "Expected function to throw exception of type '$exceptionType'";
+        }
+    
+        try
+        {
+            $function();
+        }   
+        catch (\Exception $e)
+        {
+            if ($e instanceof $exceptionType)
+            {
+                return $e;
+            }
+        }
+        
+        self::Fail($message);
+    }
+    
     private static function Fail($message)
     {
         throw new AssertFailedException($message);
