@@ -13,6 +13,8 @@ class FolderTestProvider implements Interfaces\ITestProvider
     
     private $mClassPattern;
     
+    private $mTests;
+    
     public function __construct($folderName, $filePattern, $classPattern, $recursive = true)
     {
         $this->mFolderName = $folderName;
@@ -38,7 +40,11 @@ class FolderTestProvider implements Interfaces\ITestProvider
     
     public function GetTests()
     {
-        $retVal = array();
+        if ($this->mTests !== null)
+        {
+            return $this->mTests;
+        }
+        $this->mTests = array();
         $classExport = $this->mClassPattern;
         
         foreach (scandir($this->mFolderName) as $file)
@@ -52,7 +58,7 @@ class FolderTestProvider implements Interfaces\ITestProvider
             
             if ($this->mRecursive && is_dir($filePath))
             {
-                $retVal[] = new FolderTestProvider($filePath, $this->mFilePattern, $this->mClassPattern);
+                $this->mTests[] = new FolderTestProvider($filePath, $this->mFilePattern, $this->mClassPattern);
             }
             else if (is_file($filePath) && preg_match($this->mFilePattern, $filePath) > 0)
             {
@@ -62,14 +68,34 @@ class FolderTestProvider implements Interfaces\ITestProvider
                 
                 if (class_exists($className))
                 {
-                    $retVal[] = new ObjectTestProvider(new $className());
+                    $this->mTests[] = new ObjectTestProvider(new $className());
                 }
             }
         }
         
-        return $retVal;
+        return $this->mTests;
     }
     
+    public function Count()
+    {
+        return self::CountProvider($this);
+    }
     
-    
+    private static function CountProvider($provider)
+    {
+        $retVal = 0;
+        foreach ($provider->GetTests() as $test)
+        {
+            if ($test instanceof Interfaces\ITest)
+            {
+                $retVal++;
+            }
+            else if ($test instanceof Interfaces\ITestProvider)
+            {
+                $retVal += self::CountProvider($test);
+            }
+
+        }
+        return $retVal;
+    }
 }

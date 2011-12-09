@@ -9,4 +9,6 @@ interface ITestProvider extends IStateTest
     
     public function GetTests();
     
+    public function Count();
+    
 }

@@ -61,7 +61,7 @@ class TestRunner implements Interfaces\ITestRunner
     private function RunProvider(Interfaces\ITestProvider $provider)
     {
         $tests = $provider->GetTests();
-        $this->mFormatter->StartSuite($provider->GetName(), count($tests));
+        $this->mFormatter->StartSuite($provider->GetName(), $provider->Count());
         
         try
         {

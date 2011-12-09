@@ -11,6 +11,8 @@ class ObjectTestProvider implements Interfaces\ITestProvider
     
     private $mTearDownMethod;
     
+    private $mTests;
+    
     private static $MethodsToBypass = array('SetUp' => true, 'TearDown' => true, 
                                             'ClassSetUp' => true, 'ClassTearDown' => true);
     
@@ -35,8 +37,6 @@ class ObjectTestProvider implements Interfaces\ITestProvider
         
         $this->mSetUpMethod    = self::GetMethodOrEmpty($object, 'ClassSetUp');
         $this->mTearDownMethod = self::GetMethodOrEmpty($object, 'ClassTearDown');
-        
-
     }
     
     public function GetName()
@@ -46,13 +46,18 @@ class ObjectTestProvider implements Interfaces\ITestProvider
     
     public function GetTests()
     {
+        if ($this->mTests !== null)
+        {
+            return $this->mTests;
+        }
+        
         $reflectionClass = new \ReflectionClass($this->mObject);
 
         $object = $this->mObject;
         $setUp    = self::GetMethodOrEmpty($this->mObject, 'SetUp');
         $tearDown = self::GetMethodOrEmpty($this->mObject, 'TearDown');
         
-        $retVal = array();
+        $this->mTests = array();
         
         foreach ($reflectionClass->getMethods() as $method)
         {
@@ -70,10 +75,15 @@ class ObjectTestProvider implements Interfaces\ITestProvider
             
             $test = new DelegateTest($method->getName(), $methodInvoke, $setUp, $tearDown);
   
-            $retVal[] = $test;
+            $this->mTests[] = $test;
         }
         
-        return $retVal;
+        return $this->mTests;
+    }
+    
+    public function Count()
+    {
+        return count($this->GetTests());
     }
     
     public function SetUp()
