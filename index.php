@@ -25,7 +25,7 @@ class MyTests implements pUnit\Interfaces\IStateTest
     public function TestOtherthing()
     {
 //        echo 'Test Otherthing';
-        Assert::AreEqual('a','b');
+        Assert::AreEqual('a','a');
     }
     
     private function Not_A_Test()

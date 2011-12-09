@@ -65,6 +65,20 @@ Now, Run your tests from the console :
 
     php index.php
     
+Continuous testing mode
+=======================
+
+To run in continuous testing mode you need to install those dependencies :
+
+1. Node.js
+2. Run.js ([Macintosh](https://github.com/morishani/run.js), [Others](https://github.com/DTrejo/run.js))
+
+And then you can run from your console :
+
+    runjs run.js php index.php
+
+This will watch your directory and run the tests every time a file is changed/added/removed.
+
 How to contribute ? 
 ===================
 
