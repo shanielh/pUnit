@@ -5,7 +5,7 @@ namespace pUnit;
 class AssertFailedException extends \Exception
 {
     
-    public AssertFailedException($message)
+    public function __construct($message)
     {
         parent::__construct($message);
     }

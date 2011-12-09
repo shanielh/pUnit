@@ -2,6 +2,8 @@
 
 require_once('src/autoloader.php');
 
+use pUnit\Assert as Assert;
+
 class MyTests implements pUnit\Interfaces\IStateTest
 {
     
@@ -23,7 +25,7 @@ class MyTests implements pUnit\Interfaces\IStateTest
     public function TestOtherthing()
     {
 //        echo 'Test Otherthing';
-        throw new Exception("Argh");
+        Assert::AreEqual('a','b');
     }
     
 }
