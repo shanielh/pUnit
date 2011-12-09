@@ -24,6 +24,12 @@ sub.stdout.on('data', function(data) {
     
 });
 
+sub.stderr.on('data', function(data) {
+    
+    process.stderr.write(data);
+    
+});
+
 // Wait for process exit
 sub.on('exit', function(code) {
     console.log('CHild process exited with code ' + code);
