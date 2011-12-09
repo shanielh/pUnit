@@ -1,6 +1,16 @@
 <?php
 
+set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/src/external/mockery/library/');
+
 require_once('src/autoloader.php');
+require_once('Mockery/Loader.php');
+
+$loader = new \Mockery\Loader();
+$loader->register();
+
+\Mockery::getConfiguration()->allowMockingMethodsUnnecessarily(false);
+
+
 
 use pUnit\Assert as Assert;
 
