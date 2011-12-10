@@ -68,6 +68,9 @@ Now, Run your tests from the console :
 Continuous testing mode
 =======================
 
+[What is Continuous Testing?](http://blog.objectmentor.com/articles/2007/09/20/continuous-testing-explained)
+
+
 To run in continuous testing mode you need to install those dependencies :
 
 1. Node.js
