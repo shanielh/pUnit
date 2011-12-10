@@ -86,6 +86,7 @@ class TestRunner implements Interfaces\ITestRunner
     
     private function RunTest(Interfaces\ITest $test)
     {
+        $testEnded = false;
         $this->mFormatter->StartTest($test->GetName());
         
         try
@@ -107,16 +108,23 @@ class TestRunner implements Interfaces\ITestRunner
         catch (\Exception $e)
         {
             $this->mFormatter->EndTest(false, $e);
+            $testEnded = true;
         }
         
         try
         {
-            $test->TearDown();            
-            $this->mFormatter->EndTest(true);
+            $test->TearDown();   
+            if (!$testEnded)
+            {
+                $this->mFormatter->EndTest(true);   
+            }         
         }
         catch (\Exception $e)
         {
-            $this->mFormatter->EndTest(false, $e);
+            if (!$testEnded)
+            {
+                $this->mFormatter->EndTest(false, $e);            
+            }
         }
         
     }
