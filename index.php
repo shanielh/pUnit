@@ -22,7 +22,7 @@ $classExport = function($fileName) {
 $provider = new pUnit\FolderTestProvider(__DIR__ . DS . 'tests', $pattern, $classExport);
 
 $runner = new pUnit\TestRunner();
-$runner->SetOutput(new pUnit\ConsoleTestResultFormatter());
+$runner->SetOutput(new pUnit\ConsoleTestResultFormatter(false));
 $runner->SetTest($provider);
 
 $runner->Run();
