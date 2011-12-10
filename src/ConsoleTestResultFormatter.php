@@ -76,7 +76,8 @@ class ConsoleTestResultFormatter implements Interfaces\ITestResultFormatter
         }
         else if (!$result)
         {
-            $this->WriteLine("{$this->mSuiteName}::{$this->mTestName} {$this->mFail} : $e");
+            $testName = $this->mColors->getBoldString("{$this->mSuiteName}::{$this->mTestName}");
+            $this->WriteLine("{$testName} {$this->mFail} : $e");
         }
     }
 

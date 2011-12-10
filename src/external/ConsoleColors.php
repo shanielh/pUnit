@@ -39,6 +39,12 @@ class ConsoleColors
     	$this->mBackgroundColors['light_gray'] = '47';
     }
     
+    
+    public function getBoldString($string)
+    {
+        return "\033[1m" . $string . "\033[0m";
+    }
+    
     // Returns colored string
     public function getColoredString($string, $foreground_color = null, $background_color = null) {
     	$colored_string = '';
