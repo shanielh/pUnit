@@ -13,5 +13,4 @@ interface ITestResultFormatter
     public function EndSuite();
     
     public function Summarize();
-
 }
