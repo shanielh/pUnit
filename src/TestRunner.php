@@ -61,7 +61,8 @@ class TestRunner implements Interfaces\ITestRunner
     private function RunProvider(Interfaces\ITestProvider $provider)
     {
         $tests = $provider->GetTests();
-        $this->mFormatter->StartSuite($provider->GetName(), $provider->Count());
+        $count = TestProvider::Count($provider);
+        $this->mFormatter->StartSuite($provider->GetName(), $count);
         
         try
         {
@@ -102,7 +103,6 @@ class TestRunner implements Interfaces\ITestRunner
         try
         {
             $test->Test();
-            $this->mFormatter->EndTest(true);
         }
         catch (\Exception $e)
         {
@@ -112,6 +112,7 @@ class TestRunner implements Interfaces\ITestRunner
         try
         {
             $test->TearDown();            
+            $this->mFormatter->EndTest(true);
         }
         catch (\Exception $e)
         {

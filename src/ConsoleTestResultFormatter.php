@@ -68,6 +68,7 @@ class ConsoleTestResultFormatter implements Interfaces\ITestResultFormatter
         {
             $this->mNumTestsSuccess++;
         }
+        
         if ($this->mVerbose)
         {
             $this->WriteLine(' - ' . ($result ? $this->mSuccess : $this->mFail) . ($e == null ? '' : ' - ' . $e), false);

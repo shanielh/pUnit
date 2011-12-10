@@ -107,8 +107,7 @@ class TestRunnerTests
         $test = self::GetTestMock('GetName','SetUp','Test','TearDown');
         
         $provider = self::GetProviderMock('GetName');
-        $provider->shouldReceive('GetTests')->once()->andReturn(array($test));
-        $provider->shouldReceive('Count')->once()->andReturn(1);        
+        $provider->shouldReceive('GetTests')->atLeast(1)->andReturn(array($test));
         
         self::RunWithNullFormatter($provider);
     }
@@ -121,8 +120,7 @@ class TestRunnerTests
         $test->shouldReceive('TearDown')->once()->ordered();
         
         $provider = self::GetProviderMock('GetName', 'SetUp', 'TearDown');
-        $provider->shouldReceive('GetTests')->once()->andReturn(array($test));
-        $provider->shouldReceive('Count')->once()->andReturn(1);        
+        $provider->shouldReceive('GetTests')->atLeast(1)->andReturn(array($test));
         
         self::RunWithNullFormatter($provider);
     }
@@ -130,12 +128,10 @@ class TestRunnerTests
     public function Should_Test_Inner_Provider()
     {
         $innerProvider = self::GetProviderMock('GetName', 'SetUp', 'TearDown');
-        $innerProvider->shouldReceive('GetTests')->once()->andReturn(array());
-        $innerProvider->shouldReceive('Count')->once()->andReturn(0);        
+        $innerProvider->shouldReceive('GetTests')->atLeast(1)->andReturn(array());
         
         $provider = self::GetProviderMock('GetName', 'SetUp', 'TearDown');
-        $provider->shouldReceive('GetTests')->once()->andReturn(array($innerProvider));
-        $provider->shouldReceive('Count')->once()->andReturn(1);        
+        $provider->shouldReceive('GetTests')->atLeast(1)->andReturn(array($innerProvider));
         
         self::RunWithNullFormatter($provider);
     }
@@ -148,9 +144,8 @@ class TestRunnerTests
         $formatter->shouldReceive('StartSuite')->with('Hey', 1)->once();
         
         $provider = self::GetProviderMock('SetUp','TearDown');
-        $provider->shouldReceive('GetTests')->andReturn(array());
+        $provider->shouldReceive('GetTests')->andReturn(array(self::GetTestMock('GetName')))->atLeast(1);
         $provider->shouldReceive('GetName')->andReturn('Hey');
-        $provider->shouldReceive('Count')->andReturn(1);
         
         self::RunWithFormatter($provider, $formatter);
     }
@@ -203,10 +198,10 @@ class TestRunnerTests
     
     public function Should_Call_With_Exception_When_Got_Failed_Test()
     {
-        $e = new Exception();
+        $e = new \Exception();
     
         $formatter = self::GetFormatterMock('StartSuite', 'EndSuite', 'Summarize', 'StartTest');
-        $formatter->shouldReceive('EndTest')->with(false, $e);
+        $formatter->shouldReceive('EndTest')->with(false, m::Type('\Exception'));
         
         $test = self::GetTestMock('SetUp','TearDown');
         $test->shouldReceive('GetName')->andReturn('Hey');

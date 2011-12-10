@@ -76,26 +76,4 @@ class FolderTestProvider implements Interfaces\ITestProvider
         return $this->mTests;
     }
     
-    public function Count()
-    {
-        return self::CountProvider($this);
-    }
-    
-    private static function CountProvider($provider)
-    {
-        $retVal = 0;
-        foreach ($provider->GetTests() as $test)
-        {
-            if ($test instanceof Interfaces\ITest)
-            {
-                $retVal++;
-            }
-            else if ($test instanceof Interfaces\ITestProvider)
-            {
-                $retVal += self::CountProvider($test);
-            }
-
-        }
-        return $retVal;
-    }
 }

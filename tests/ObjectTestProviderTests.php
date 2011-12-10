@@ -69,7 +69,7 @@ class ObjectTestProviderTests
     {
         $provider = new ObjectTestProvider(new Class_With_One_Test());
         
-        Assert::AreEqual(1, $provider->Count());
+        Assert::AreEqual(1, pUnit\TestProvider::Count($provider));
     }
 
     public function Get_Tests_Should_Return_Public_Methods_As_DelegateTest()

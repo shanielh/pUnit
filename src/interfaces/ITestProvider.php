@@ -8,7 +8,5 @@ interface ITestProvider extends IStateTest
     public function GetName();
     
     public function GetTests();
-    
-    public function Count();
-    
+        
 }

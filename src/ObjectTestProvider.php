@@ -81,11 +81,6 @@ class ObjectTestProvider implements Interfaces\ITestProvider
         return $this->mTests;
     }
     
-    public function Count()
-    {
-        return count($this->GetTests());
-    }
-    
     public function SetUp()
     {
         $method = $this->mSetUpMethod;
