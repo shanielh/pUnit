@@ -1,3 +1,6 @@
 [submodule "src/external/mockery"]
 	path = src/external/mockery
 	url = https://github.com/padraic/mockery.git
+[submodule "src/external/php-growl"]
+	path = src/external/php-growl
+	url = https://github.com/tylerhall/php-growl/
