@@ -32,6 +32,6 @@ sub.stderr.on('data', function(data) {
 
 // Wait for process exit
 sub.on('exit', function(code) {
-    console.log('CHild process exited with code ' + code);
+    console.log('Child process exited with code ' + code);
 });
 
