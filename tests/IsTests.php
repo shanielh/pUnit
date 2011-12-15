@@ -7,18 +7,24 @@ use \Mockery as m;
 class IsTests 
 {
 
-    public function True_Should_Throw_When_Not_True()
+    public function True_Should_Return_False_When_Not_True()
     {
-        Assert::Throws(function() {
-            Is::True()->Run(false);
-        }, 'Exception');
+        Assert::IsFalse(Is::True()->Run(false));
     }
     
-    public function False_Should_Throw_When_Not_False()
+    public function False_Should_Return_False_When_Not_False()
     {
-        Assert::Throws(function() {
-            Is::False()->Run(true);
-        }, 'Exception');
+        Assert::IsFalse(Is::False()->Run(true));
+    }
+    
+    public function Equal_Should_Return_False_When_Not_Equal()
+    {
+        Assert::IsFalse(Is::Equal(5)->Run(4));
+    }
+    
+    public function Not_Should_Return_The_Oposite()
+    {
+        Assert::IsTrue(Is::Not(Is::True())->Run(false));
     }
 
 }

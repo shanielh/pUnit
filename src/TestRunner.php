@@ -88,10 +88,10 @@ class TestRunner implements Interfaces\ITestRunner
     {
         $testEnded = false;
         $this->mFormatter->StartTest($test->GetName());
-        
+
         try
-        {
-            $test->SetUp();            
+        {            
+            $test->SetUp();               
         }
         catch (\Exception $e)
         {

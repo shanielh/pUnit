@@ -15,7 +15,7 @@ class DelegateAssertion implements Interfaces\IAssertion
     public function Run($object)
     {
         $func = $this->mFunc;
-        $func($object);
+        return $func($object);
     }
     
 }

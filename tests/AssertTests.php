@@ -150,20 +150,12 @@ class AssertTests
     
     // That :
     
-    public function That_Should_Not_Catch_Exceptions()
+    public function That_Should_Throw_When_Got_False_Value()
     {
         $mock = m::mock('\pUnit\Interfaces\IAssertion');
-        $mock->shouldReceive('Run')->andThrow(new \Exception());
-        try
-        {
-            Assert::That(5, $mock);
-        }
-        catch (\Exception $e)
-        {
-            return;
-        }
+        $mock->shouldReceive('Run')->andReturn(false);
         
-        Assert::Fail('Exception was swallowed');
+        Assert::Throws(function() use($mock) { Assert::That(5, $mock); }, 'Exception');
     }
     
 }
