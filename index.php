@@ -22,9 +22,9 @@ $classExport = function($fileName) {
 $provider = new pUnit\FolderTestProvider(__DIR__ . DS . 'tests', $pattern, $classExport);
 
 $runner = new pUnit\TestRunner();
-$formatter = new pUnit\CompositeTestResultFormatter(array(
-    new pUnit\GrowlTestResultFormatter('127.0.0.1','password'),
-    new pUnit\ConsoleTestResultFormatter(false)
+$formatter = new pUnit\TestResultFormatters\CompositeTestResultFormatter(array(
+    new pUnit\TestResultFormatters\GrowlTestResultFormatter('127.0.0.1','password'),
+    new pUnit\TestResultFormatters\ConsoleTestResultFormatter(false)
     ));
 $runner->SetOutput($formatter);
 $runner->SetTest($provider);

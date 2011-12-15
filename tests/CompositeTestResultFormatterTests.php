@@ -1,7 +1,7 @@
 <?php
 
 use \Mockery as m;
-use \pUnit\CompositeTestResultFormatter as CompositeTestResultFormatter;
+use \pUnit\TestResultFormatters\CompositeTestResultFormatter as CompositeTestResultFormatter;
 
 class CompositeTestResultFormatterTests
 {

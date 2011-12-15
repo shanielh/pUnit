@@ -42,6 +42,7 @@ class Autoloader
         $className = substr($className, $this->mNamespaceLength);
         
         $fileName = str_replace('\\', DS, $className) . '.php';
+        
         $filePath = $this->mDir . $fileName;
         
         require_once($filePath);
