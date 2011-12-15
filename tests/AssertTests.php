@@ -23,7 +23,7 @@ class AssertTests
         catch (Exception $e)
         {
             return;
-        }f
+        }
         
         throw new Exception('Exception should have been thrown, but wasn\'t');
     }
