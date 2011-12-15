@@ -1,9 +1,16 @@
 <?php
 
 use pUnit\Assert as Assert;
+use \Mockery as m;
 
 class AssertTests 
 {
+    
+    public function TearDown()
+    {
+        m::close();   
+    }
+    
     // Throws :
     
     public function Throws_Should_Throw_When_Exception_Not_Thrown()
@@ -138,6 +145,25 @@ class AssertTests
     public function NotInstanceOf_Should_Not_Throw_When_Not_Instance_Of()
     {
         Assert::NotInstanceOf('Exception', 1);
+    }
+    
+    
+    // That :
+    
+    public function That_Should_Not_Catch_Exceptions()
+    {
+        $mock = m::mock('\pUnit\Interfaces\IAssertion');
+        $mock->shouldReceive('Run')->andThrow(new \Exception());
+        try
+        {
+            Assert::That(5, $mock);
+        }
+        catch (\Exception $e)
+        {
+            return;
+        }
+        
+        Assert::Fail('Exception was swallowed');
     }
     
 }

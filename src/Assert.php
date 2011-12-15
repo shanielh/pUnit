@@ -196,5 +196,10 @@ abstract class Assert
     {
         throw new AssertFailedException($message);
     }
+    
+    public static function That($obj, Interfaces\IAssertion $assertion)
+    {
+        $assertion->Run($obj);
+    }
 
 }
