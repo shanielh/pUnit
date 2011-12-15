@@ -48,8 +48,15 @@ class CompositeTestResultFormatter implements \pUnit\Interfaces\ITestResultForma
         foreach ($this->mFormatters as $formatter)
         {
             $formatter->Summarize();
+        }  
+    }
+    
+    public function FatalError(\Exception $e)
+    {
+        foreach ($this->mFormatters as $formatter)
+        {
+            $formatter->FatalError($e);
         }
-        
     }
 
 }

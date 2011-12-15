@@ -34,9 +34,21 @@ class TestRunner implements Interfaces\ITestRunner
             throw new Exception("You must call SetTest before running tests");
         }
     }
+    
+    public function Shutdown()
+    {
+        if (!is_null($e = error_get_last()))
+        {
+            $exception = new \ErrorException($e['message'], 0, $e['type'], $e['file'], $e['line']);
+            $this->mFormatter->FatalError($exception);       
+        }
+        
+        exit();
+    }
  
     public function Run()
     {
+        register_shutdown_function(array($this, 'Shutdown'));
         $this->RunPolymorphic($this->mProvider);
         
         $this->mFormatter->Summarize();

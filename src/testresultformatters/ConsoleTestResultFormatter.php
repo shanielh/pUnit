@@ -97,6 +97,12 @@ class ConsoleTestResultFormatter implements \pUnit\Interfaces\ITestResultFormatt
         $this->mIndentation--;
     }
     
+    public function FatalError(\Exception $e)
+    {
+        $testName = $this->mColors->getBoldString("Fatal Error");
+        $this->WriteLine("{$this->mFail} {$testName} : $e");
+    }
+    
     public function Summarize()
     {
         if ($this->mNumTestsSuccess === $this->mNumTests)

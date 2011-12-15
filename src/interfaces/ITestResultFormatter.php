@@ -13,4 +13,6 @@ interface ITestResultFormatter
     public function EndSuite();
     
     public function Summarize();
+    
+    public function FatalError(\Exception $e);
 }

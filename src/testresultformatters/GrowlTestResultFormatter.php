@@ -56,4 +56,9 @@ class GrowlTestResultFormatter implements \pUnit\Interfaces\ITestResultFormatter
         }
     }
     
+    public function FatalError(\Exception $e)
+    {
+        $this->mGrowl->notify($this->mConnection, 'pUnit', 'Fatal Error', $e);
+    }
+    
 }
